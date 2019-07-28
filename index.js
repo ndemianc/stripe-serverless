@@ -8,13 +8,24 @@ module.exports = function(context, req) {
   if (
     req.body &&
     req.body.stripeEmail &&
-    req.body.stripeToken &&
     req.body.stripeAmt
   ) {
-    stripe.customers
+    context.log('creating chargable card');
+    stripe.tokens
       .create({
-        email: req.body.stripeEmail,
-        source: req.body.stripeToken
+        card: {
+          number: '4242424242424242',
+          exp_month: 12,
+          exp_year: 2020,
+          cvc: '123'
+        }
+      })
+      .then(token => {
+        context.log('creating stripe customer');
+        stripe.customers.create({
+          email: req.body.stripeEmail,
+          source: token
+        });
       })
       .then(customer => {
         context.log('starting the stripe charges');
