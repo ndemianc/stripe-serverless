@@ -1,4 +1,4 @@
-var stripe = require('stripe')('sk_test_A68iPiLXA6XwPr2gIsCihvoP00GabIlDfC');
+var stripe = require('stripe')('sk_test_T16pSV4sgmAdSfYNpG32GZGj00Ou8KpUvY');
 // ^ this is a stripe testing key
 
 module.exports = function(context, req) {
